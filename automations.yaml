@@ -1,1 +1,27 @@
-[]
+# Bathroom
+- id: '1586253486196'
+  alias: Включить свет в ванной по движению
+  description: Sonoff x Aqara
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_158d00044e7a1f
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '300'
+    condition: numeric_state
+    entity_id: sensor.illumination_158d00044e7a1f
+  action:
+  - data: {}
+    entity_id: switch.sonoff_1000611237
+    service: switch.turn_on
+
+- alias: Выключить свет в ванной, если движение не фиксировалось 2 минуты
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_158d00044e7a1f
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.sonoff_1000611237
