@@ -1,0 +1,36 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+http:
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# You can leave MAC empty if you only have one gateway.
+xiaomi_aqara:
+  discovery_retry: 10
+  gateways:
+    - key: !secret aqara_token
+
+sonoff:
+  username: !secret sonoff_username
+  password: !secret sonoff_password
+  scan_interval: 60
+  grace_period: 600
+  api_region: 'eu'
+  entity_prefix: true
+  debug: false
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
