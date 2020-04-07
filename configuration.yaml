@@ -30,6 +30,9 @@ sonoff:
   entity_prefix: true
   debug: false
 
+yeelight:
+  devices: !include lights.yaml
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
